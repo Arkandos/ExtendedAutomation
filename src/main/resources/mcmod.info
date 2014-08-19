@@ -1,0 +1,11 @@
+[
+{
+  "modid": "ExtendedAutomation",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "name": "Extended Automation",
+  "description": "Little mod to tweak other mods",
+  "authors": [ "Arkandos" ],
+  "credits": "Pahimar for the excellent LMRB series"
+}
+]
