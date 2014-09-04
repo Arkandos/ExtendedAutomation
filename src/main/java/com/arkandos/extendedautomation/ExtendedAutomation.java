@@ -2,13 +2,16 @@ package com.arkandos.extendedautomation;
 
 
 import com.arkandos.braincore.proxy.IProxy;
+import com.arkandos.extendedautomation.handler.ConfigurationHandler;
 import com.arkandos.extendedautomation.utility.Reference;
 import com.arkandos.extendedautomation.utility.compatibility.ModHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.config.Configuration;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, dependencies = Reference.DEPENDENCIES, version = Reference.Version)
 public class ExtendedAutomation
@@ -24,6 +27,9 @@ public class ExtendedAutomation
     public void preInit(FMLPreInitializationEvent event)
     {
         ModHandler.preInit();
+
+        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+        FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
     }
 
     @Mod.EventHandler

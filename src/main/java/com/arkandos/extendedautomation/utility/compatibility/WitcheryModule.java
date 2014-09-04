@@ -1,8 +1,10 @@
 package com.arkandos.extendedautomation.utility.compatibility;
 
 import com.arkandos.braincore.utility.LogHelper;
+import com.arkandos.braincore.utility.compatibility.MekanismHandler;
 import com.arkandos.braincore.utility.compatibility.MineFactoryReloadedHandler;
 import com.arkandos.braincore.utility.compatibility.WitcheryHandler;
+import com.arkandos.extendedautomation.handler.ConfigurationHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,7 +15,7 @@ public class WitcheryModule
 
     public static void preInit()
     {
-        if (WitcheryHandler.isLoaded())
+        if (WitcheryHandler.isLoaded() && ConfigurationHandler.WitcheryActive)
         {
 
         }
@@ -21,7 +23,7 @@ public class WitcheryModule
 
     public static void init()
     {
-        if (WitcheryHandler.isLoaded())
+        if (WitcheryHandler.isLoaded() && ConfigurationHandler.WitcheryActive)
         {
 
         }
@@ -29,7 +31,7 @@ public class WitcheryModule
 
     public static void postInit()
     {
-        if(WitcheryHandler.isLoaded())
+        if(WitcheryHandler.isLoaded() && ConfigurationHandler.WitcheryActive)
         {
             registerPlants();
         }
@@ -47,8 +49,6 @@ public class WitcheryModule
 
         for (WitcheryHandler.Plants plant : WitcheryHandler.Plants.values())
         {
-            LogHelper.info("ExtendedAutomation", plant.getSeed());
-            LogHelper.info("ExtendedAutomation", GameRegistry.findItem(NAME, plant.getSeed()).getUnlocalizedName());
             tag = new NBTTagCompound();
             tag.setString("seed", GameRegistry.findUniqueIdentifierFor(GameRegistry.findItem(NAME, plant.getSeed())).toString());
             tag.setString("crop", GameRegistry.findUniqueIdentifierFor(GameRegistry.findBlock(NAME, plant.getPlant())).toString());
@@ -58,6 +58,11 @@ public class WitcheryModule
             is = GameRegistry.findItemStack(NAME, plant.getPlant(), 1);
             is.setItemDamage(4);
             MineFactoryReloadedHandler.registerHarvestableCrop(is);
+
+            if (ConfigurationHandler.MekanismActive)
+            {
+                MekanismHandler.registerBiofuelRecipe(GameRegistry.findItemStack(NAME, plant.getSeed(), 1), ConfigurationHandler.witcheryBiofuelValue);
+            }
         }
     }
 }
