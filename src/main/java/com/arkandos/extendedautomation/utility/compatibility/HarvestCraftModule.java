@@ -10,12 +10,16 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class HarvestCraftModule
 {
+    public static final String NAME = HarvestCraftHandler.getName();
+    public static final String loadedMessage = "Categorizing plants, fruits and fishes!";
+
     static HarvestCraftHandler hc = new HarvestCraftHandler();
+
     public static void preInit()
     {
         if (hc.isLoaded() && ConfigurationHandler.HarvestCraftActive)
         {
-
+            ModHandler.printLoadedMessage(NAME, loadedMessage);
         }
     }
 

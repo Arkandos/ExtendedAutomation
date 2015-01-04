@@ -12,12 +12,13 @@ import net.minecraft.nbt.NBTTagCompound;
 public class WitcheryModule
 {
     public static final String NAME = WitcheryHandler.getName();
+    public static final String loadedMessage = "Taming the occult plants!";
 
     public static void preInit()
     {
         if (WitcheryHandler.isLoaded() && ConfigurationHandler.WitcheryActive)
         {
-
+            ModHandler.printLoadedMessage(NAME, loadedMessage);
         }
     }
 
